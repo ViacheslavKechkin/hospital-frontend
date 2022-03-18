@@ -1,0 +1,30 @@
+.wrapper-registration {
+  margin-top: 41px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  gap: 51px;
+  width: 100%;
+
+  .block-form {
+    width: 30%;
+    background: rgb(240, 161, 161);
+  }
+
+  img {
+    width: 30%;
+  }
+
+  form {
+    height: 453px;
+    padding: 40px 40px 0 40px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    display: flex;
+    margin: 10px 0 10px 0;
+  }
+}
