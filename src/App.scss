@@ -1,5 +1,28 @@
 .App {
   text-align: center;
+  background-color: #C5E9FFB8;
+  font-weight: 300;
+
+  header {
+  display: flex;
+  align-items: center;
+  background-color: #C5E9FF;
+  height: 117px;
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .main-logo {
+    margin-left: 35px;
+  }
+
+  .headerTitle {
+    font-style: normal;
+    font-weight: 300;
+    margin-left: 75px;
+    font-weight: 300;
+    font-size: 36px;
+    line-height: 42px;
+  }
 }
 
 .App-logo {
