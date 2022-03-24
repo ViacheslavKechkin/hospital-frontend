@@ -3,13 +3,24 @@ import React, { useContext, useEffect } from "react";
 import { Routes, Route } from 'react-router-dom';
 import axios from "axios";
 import MyContext from './context';
-import Mysnackbar from "./components/MUI/Mysnackbar/Mysnackbar";
 import Registration from './components/Registration/Registration';
+import Authorization from "./components/Authorization/Authorization";
+import Mysnackbar from "./components/MUI/Mysnackbar/Mysnackbar";
+import Main from "./components/Main/Main";
 import logoHospital from './img/logohospital.png'
 import './App.scss';
 
 const App = () => {
-  const { flagHeader, mySnackBar, setMySnackBar, users, setUsers } = useContext(MyContext);
+  const {
+    flagHeader,
+    mySnackBar,
+    setMySnackBar,
+    users,
+    setUsers,
+    textHeader,
+    setTextHeader 
+  } = useContext(MyContext);
+  
   const { open } = mySnackBar;
 
   const handleCloseBar = () => {
@@ -24,22 +35,35 @@ const App = () => {
 
   console.log(users);
 
+  if (flagHeader === 'authorization') {
+    setTextHeader('Войти в систему')
+  }
+  if (flagHeader === 'registration') {
+    setTextHeader('Зарегистрироваться в системе')
+  }
+  if (flagHeader === 'login') {
+    setTextHeader('Приемы')
+  }
+
   return (
     <div className="App">
       <header>
         <img src={logoHospital} alt="LogoHospital" className='main-logo' />
-        {flagHeader === 'registration' && (
-          <div className='headerTitle'>Зарегистрироваться в системе</div>
-        )}
+        <div className='headerTitle'>{textHeader}</div>
       </header>
       <Mysnackbar
         open={open}
         handleCloseBar={handleCloseBar}
       />
       <Routes>
-        <Route path='/' element={'#'} />
         <Route path='/registration' element={
           <Registration />
+        } />
+        <Route path='/' element={
+          <Authorization />
+        } />
+        <Route path='/main' element={
+          <Main />
         } />
       </Routes>
     </div>
