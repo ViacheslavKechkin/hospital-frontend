@@ -3,16 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MyContext from "../../context";
 import mainImg from '../../img/mainImg.png'
-import './Registration.scss';
+import './Authorization.scss'
 
-const Registration = () => {
+const Authorization = () => {
   const navigate = useNavigate();
 
   const {
-    setUsers,
     setFlagHeader,
-    setMySnackBar,
     setMessageSnackBar,
+    setMySnackBar,
     newToken,
     setNewToken,
   } = useContext(MyContext);
@@ -22,13 +21,10 @@ const Registration = () => {
     const formData = new FormData(e.target);
     const email = formData.get('email');
     const password = formData.get('password');
-    const repeatPassword = formData.get('repeatPassword');
-    addNewUser(email, password, repeatPassword);
+    loginOn(email, password);
   }
-  const addNewUser = async (email, password, repeatPassword) => {
 
-    const pattern = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}/g;
-
+  const loginOn = async (email, password) => {
     if (email === "") {
       setMessageSnackBar(" Пожалуйста, напишите почту !");
       return setMySnackBar({ open: true })
@@ -37,29 +33,16 @@ const Registration = () => {
       setMessageSnackBar(" Пожалуйста, напишите пароль !");
       return setMySnackBar({ open: true })
     }
-    if (repeatPassword === "") {
-      setMessageSnackBar(" Пожалуйста, повторите пароль !");
-      return setMySnackBar({ open: true })
-    }
-    if (password !== repeatPassword) {
-      setMessageSnackBar(" Пожалуйста, введите одинаковые пароли !");
-      return setMySnackBar({ open: true })
-    }
-    if (!pattern.test(password)) {
-      setMessageSnackBar("Пароль должн быть не меньше 6 символов, должен состоять из латинских символов и содержать хотя бы 1 число.!");
-      return setMySnackBar({ open: true })
-    }
 
-    if (email !== '' && password !== '' && repeatPassword !== '') {
-      await axios.post('http://localhost:9000/createUser', {
+    if (email !== '' && password !== '') {
+      await axios.post('http://localhost:9000/login', {
         email,
         password
       }).then(res => {
-        setUsers(res.data.data);
         setNewToken(res.data);
       })
-      .catch (() => {
-        setMessageSnackBar(" Пользователь с таким именем уже существует!");
+      .catch(() => {
+        setMessageSnackBar(" Пожалуйста заполните все данные корректно !");
         setMySnackBar({ open: true })
       })
     } else {
@@ -71,13 +54,13 @@ const Registration = () => {
   if (newToken) {
     navigate('/Main')
     setFlagHeader('login')
-  } 
+  }
 
   return (
     <div className="wrapper-registration">
       <img src={mainImg} alt="mainImg" />
       <div className="block-form">
-        <div className="block-form__title">Регистрация</div>
+        <div className="block-form__title">Войти в систему</div>
         <form onSubmit={handleSubmit}>
           <label>Login:</label>
           <input
@@ -91,17 +74,11 @@ const Registration = () => {
             id='password'
             name='password'
             placeholder="Password" />
-          <label>Repeat password:</label>
-          <input
-            type='password'
-            id='repeatPassword'
-            name='repeatPassword'
-            placeholder="Password" />
-          <button>Зарегистрироваться</button>
+          <button className="button-auth">Войти</button>
         </form>
-        <Link to={'/'}>
-          <button className="btn-authorization" onClick={() => setFlagHeader('authorization')}>
-            Авторизоваться
+        <Link to={'/registration'}>
+          <button className="btn-registration" onClick={() => setFlagHeader('registration')}>
+            Зарегистрироваться
           </button>
         </Link>
       </div>
@@ -109,4 +86,4 @@ const Registration = () => {
   )
 }
 
-export default Registration;
+export default Authorization;
