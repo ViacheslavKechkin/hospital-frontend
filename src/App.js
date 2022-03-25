@@ -2,11 +2,11 @@
 import React, { useContext, useEffect } from "react";
 import { Routes, Route } from 'react-router-dom';
 import axios from "axios";
-import MyContext from './context';
-import Registration from './components/Registration/Registration';
 import Authorization from "./components/Authorization/Authorization";
+import Registration from './components/Registration/Registration';
 import Mysnackbar from "./components/MUI/Mysnackbar/Mysnackbar";
 import Main from "./components/Main/Main";
+import MyContext from './context';
 import logoHospital from './img/logohospital.png'
 import './App.scss';
 
@@ -32,8 +32,6 @@ const App = () => {
       setUsers(res.data.data);
     });
   }, [setUsers])
-
-  console.log(users);
 
   if (flagHeader === 'authorization') {
     setTextHeader('Войти в систему')

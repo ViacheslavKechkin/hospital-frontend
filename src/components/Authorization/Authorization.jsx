@@ -22,11 +22,9 @@ const Authorization = () => {
     const email = formData.get('email');
     const password = formData.get('password');
     loginOn(email, password);
-
   }
 
   const loginOn = async (email, password) => {
-
     if (email === "") {
       setMessageSnackBar(" Пожалуйста, напишите почту !");
       return setMySnackBar({ open: true })
