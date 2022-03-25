@@ -2,11 +2,11 @@
 import React, { useContext, useEffect } from "react";
 import { Routes, Route } from 'react-router-dom';
 import axios from "axios";
-import Authorization from "./components/Authorization/Authorization";
-import Registration from './components/Registration/Registration';
-import Mysnackbar from "./components/MUI/Mysnackbar/Mysnackbar";
-import Main from "./components/Main/Main";
 import MyContext from './context';
+import Main from "./components/Main/Main";
+import Mysnackbar from "./components/MUI/Mysnackbar/Mysnackbar";
+import Registration from './components/Registration/Registration';
+import Authorization from "./components/Authorization/Authorization";
 import logoHospital from './img/logohospital.png'
 import './App.scss';
 
