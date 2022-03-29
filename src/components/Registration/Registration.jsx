@@ -15,6 +15,7 @@ const Registration = () => {
     setMessageSnackBar,
     newToken,
     setNewToken,
+    setLoginStorage
   } = useContext(MyContext);
 
   const handleSubmit = (e) => {
@@ -25,6 +26,7 @@ const Registration = () => {
     const repeatPassword = formData.get('repeatPassword');
     addNewUser(email, password, repeatPassword);
   }
+
   const addNewUser = async (email, password, repeatPassword) => {
 
     const pattern = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}/g;
@@ -51,6 +53,7 @@ const Registration = () => {
     }
 
     if (email !== '' && password !== '' && repeatPassword !== '') {
+      setLoginStorage(email);
       await axios.post('http://localhost:9000/createUser', {
         email,
         password
@@ -58,10 +61,10 @@ const Registration = () => {
         setUsers(res.data.data);
         setNewToken(res.data);
       })
-      .catch (() => {
-        setMessageSnackBar(" Пользователь с таким именем уже существует!");
-        setMySnackBar({ open: true })
-      })
+        .catch(() => {
+          setMessageSnackBar(" Пользователь с таким именем уже существует!");
+          setMySnackBar({ open: true })
+        })
     } else {
       setMessageSnackBar(" Пожалуйста заполните все поля регистрации !");
       setMySnackBar({ open: true })
@@ -71,7 +74,7 @@ const Registration = () => {
   if (newToken) {
     navigate('/Main')
     setFlagHeader('login')
-  } 
+  }
 
   return (
     <div className="wrapper-registration">

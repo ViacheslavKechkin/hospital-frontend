@@ -14,6 +14,7 @@ const Authorization = () => {
     setMySnackBar,
     newToken,
     setNewToken,
+    setLoginStorage
   } = useContext(MyContext);
 
   const handleSubmit = (e) => {
@@ -25,14 +26,7 @@ const Authorization = () => {
   }
 
   const loginOn = async (email, password) => {
-    if (email === "") {
-      setMessageSnackBar(" Пожалуйста, напишите почту !");
-      return setMySnackBar({ open: true })
-    }
-    if (password === "") {
-      setMessageSnackBar(" Пожалуйста, напишите пароль !");
-      return setMySnackBar({ open: true })
-    }
+    setLoginStorage(email);
 
     if (email !== '' && password !== '') {
       await axios.post('http://localhost:9000/login', {
@@ -41,13 +35,22 @@ const Authorization = () => {
       }).then(res => {
         setNewToken(res.data);
       })
-      .catch(() => {
-        setMessageSnackBar(" Пожалуйста заполните все данные корректно !");
-        setMySnackBar({ open: true })
-      })
-    } else {
-      setMessageSnackBar(" Пожалуйста заполните все поля регистрации !");
-      setMySnackBar({ open: true })
+        .catch(() => {
+          setMessageSnackBar("Логин или пароль введен неверно !");
+          setMySnackBar({ open: true })
+        })
+    }
+    if (email === '' && password === '') {
+      setMessageSnackBar("Пожалуйста заполните все поля регистрации !");
+      return setMySnackBar({ open: true })
+    }
+    if (password === '') {
+      setMessageSnackBar("Пожалуйста, напишите пароль !");
+      return setMySnackBar({ open: true })
+    }
+    if (email === '') {
+      setMessageSnackBar("Пожалуйста, напишите почту !");
+      return setMySnackBar({ open: true })
     }
   }
 
@@ -62,7 +65,7 @@ const Authorization = () => {
       <div className="block-form">
         <div className="block-form__title">Войти в систему</div>
         <form onSubmit={handleSubmit}>
-          <label>Login:</label>
+          <label>Login / Email:</label>
           <input
             type='email'
             id='email'
