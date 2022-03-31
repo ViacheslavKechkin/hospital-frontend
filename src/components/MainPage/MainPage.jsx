@@ -3,45 +3,47 @@ import axios from 'axios';
 import moment from "moment";
 import MyContext from "../../context";
 import RenderRecords from "../RenderRecords/RenderRecords";
-import './Main.scss'
+import './MainPage.scss'
 
-const Main = () => {
-  const [newDate, setNewDate] = useState('');
+const MainPage = () => {
+  const [newRecord, setNewRecord] = useState([]);
 
   const {
     setMySnackBar,
     setMessageSnackBar,
-    setNewRecord,
-    loginStorage,
   } = useContext(MyContext);
 
-  useEffect(() => {
-    setNewDate(now.format('yyyy-MM-DD'));
-  }, [])
-
   const now = moment();
+  const [newDate, setNewDate] = useState(now.format('yyyy-MM-DD'));
 
   const changeDateInput = (event) => {
     setNewDate(event.target.value)
   }
 
   useEffect(() => {
-    axios.get('http://localhost:9000/allRecords').then(res => {
-      setNewRecord(res.data.data);
-    });
-  }, [setNewRecord])
+    axios.get('http://localhost:9000/allRecords', {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    })
+      .then(res => {
+        setNewRecord(res.data.data);
+      });
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const name = formData.get('name');
-    const doctor = formData.get('doctor');
-    const date = formData.get('date').split('-').reverse().join('.');
-    const comment = formData.get('comment');
-    addNewRecord(name, doctor, date, comment, formData);
+    let name = formData.get('name');
+    let doctor = formData.get('doctor');
+    let date = formData.get('date').split('-').reverse().join('.');
+    let comment = formData.get('comment');
+    addNewRecord(name, doctor, date, comment);
+    formData.set(name, '')
   }
 
   const addNewRecord = async (name, doctor, date, comment) => {
+    let email = localStorage.getItem("email");
 
     if (name !== '' && doctor !== '' && date !== '' && comment !== '') {
       await axios.post('http://localhost:9000/createRecord', {
@@ -49,15 +51,50 @@ const Main = () => {
         doctor,
         date,
         comment,
-        loginStorage
-      }).then(res => {
+        email,
+      },
+        {
+          headers: {
+            token: localStorage.getItem("token"),
+          }
+        }
+      ).then(res => {
         setNewRecord(res.data.data);
-        // setNewToken(res.data);
       })
     } else {
       setMessageSnackBar(" Пожалуйста заполните все поля записи !");
       setMySnackBar({ open: true })
     }
+  }
+
+  const option = [
+    {
+      value: "Дядя Жора",
+      text: "Дядя Жора"
+    },
+    {
+      value: "Отец Вартан",
+      text: "Отец Вартан"
+    },
+    {
+      value: "Варфаламей Петров",
+      text: "Варфаламей Петров"
+    },
+    {
+      value: "Ivan",
+      text: "Ivan"
+    },
+  ]
+
+  const dropdownDoctors = () => {
+    return (
+      option.map((item, index) => {
+        const { value, text } = item;
+        return (
+          <option key={`idx-${index}`} value={value}>{text}</option>
+        )
+      })
+    )
   }
 
   return (
@@ -71,18 +108,14 @@ const Main = () => {
               id='name'
               name='name'
               placeholder="Введите ФИО"
-            ></input>
+            />
           </div>
           <div className="main-form__wrapper">
             <label>Врач:</label>
             <select
               id='doctor'
               name='doctor'
-            >
-              <option value="Дядя Жора">Дядя Жора</option>
-              <option value="Отец Варта">Отец Вартан</option>
-              <option value="Варфаламей Петров">Варфаламей Петров</option>
-              <option value="Ivan">Ivan</option>
+            >{dropdownDoctors()}
             </select>
           </div>
           <div className="main-form__wrapper">
@@ -93,9 +126,8 @@ const Main = () => {
               name='date'
               placeholder="Введите дату"
               value={newDate}
-              // .split('.').reverse().join('-')
               onChange={(e) => changeDateInput(e)}
-            ></input>
+            />
           </div>
           <div className="main-form__wrapper">
             <label>Жалобы:</label>
@@ -104,14 +136,14 @@ const Main = () => {
               id='comment'
               name='comment'
               placeholder="Введите жалобу"
-            ></input>
+            />
           </div>
           <button>Добавить</button>
         </form>
       </div>
-      <RenderRecords />
+      <RenderRecords newRecord={newRecord} />
     </>
   )
 }
 
-export default Main;
+export default MainPage;

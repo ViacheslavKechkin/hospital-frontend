@@ -13,9 +13,7 @@ const Registration = () => {
     setFlagHeader,
     setMySnackBar,
     setMessageSnackBar,
-    newToken,
-    setNewToken,
-    setLoginStorage
+    setUserId
   } = useContext(MyContext);
 
   const handleSubmit = (e) => {
@@ -28,8 +26,8 @@ const Registration = () => {
   }
 
   const addNewUser = async (email, password, repeatPassword) => {
-
-    const pattern = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}/g;
+    // const pattern = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}/g;
+    const patternOnLogin = /^.{6,}$/;
 
     if (email === "") {
       setMessageSnackBar(" Пожалуйста, напишите почту !");
@@ -47,33 +45,39 @@ const Registration = () => {
       setMessageSnackBar(" Пожалуйста, введите одинаковые пароли !");
       return setMySnackBar({ open: true })
     }
-    if (!pattern.test(password)) {
-      setMessageSnackBar("Пароль должн быть не меньше 6 символов, должен состоять из латинских символов и содержать хотя бы 1 число.!");
-      return setMySnackBar({ open: true })
+    if (email === '' && password === '' && repeatPassword === '') {
+      setMessageSnackBar(" Пожалуйста заполните все поля регистрации !");
+      setMySnackBar({ open: true })
     }
 
-    if (email !== '' && password !== '' && repeatPassword !== '') {
-      setLoginStorage(email);
+    if (email !== '' && password !== '' && repeatPassword !== '' && patternOnLogin.test(email)) {
+      localStorage.setItem("email", email);
       await axios.post('http://localhost:9000/createUser', {
         email,
         password
       }).then(res => {
         setUsers(res.data.data);
-        setNewToken(res.data);
+        setUserId(res.data.user._id)
+        localStorage.setItem("token", res.data.token);
       })
         .catch(() => {
           setMessageSnackBar(" Пользователь с таким именем уже существует!");
           setMySnackBar({ open: true })
+          localStorage.setItem("token", '');
         })
-    } else {
-      setMessageSnackBar(" Пожалуйста заполните все поля регистрации !");
-      setMySnackBar({ open: true })
-    }
-  }
+    } if (!patternOnLogin.test(email)) {
+      setMessageSnackBar(" Email должен быть минимум 6 символов !");
+      return setMySnackBar({ open: true })
+    } 
+    // if (!pattern.test(password)) {
+    //   setMessageSnackBar("Пароль должн быть не меньше 6 символов, должен состоять из латинских символов и содержать хотя бы 1 число.!");
+    //   return setMySnackBar({ open: true })
+    // }
 
-  if (newToken) {
-    navigate('/Main')
-    setFlagHeader('login')
+    if (localStorage.getItem("token") && patternOnLogin.test(email)) {
+      navigate('/main')
+      setFlagHeader('login')
+    }
   }
 
   return (

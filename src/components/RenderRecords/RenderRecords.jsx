@@ -1,18 +1,11 @@
-import React, { useContext } from "react";
-import _ from 'lodash'
-import MyContext from "../../context";
+import React from "react";
 import deleteImg from "./img/trash.png"
 import updateImg from "./img/update.png"
 import './RenderRecords.scss'
 
-const RenderRecords = () => {
+const RenderRecords = ({ newRecord }) => {
 
-  const {
-    newRecord,
-    loginStorage
-  } = useContext(MyContext);
-
-  const thisUserRecord = _.filter(newRecord, ['loginStorage', loginStorage]);
+  console.log('newRecordnewRecord', newRecord);
 
   return (
     <div className="records">
@@ -24,7 +17,7 @@ const RenderRecords = () => {
         <div className="records__el-5"></div>
       </div>
       {
-        thisUserRecord.map((item, index) => {
+        newRecord.map((item, index) => {
           const { name, doctor, date, comment } = item;
           return (
             <div className={"wrapper-records"} key={`idx-${index}`}>

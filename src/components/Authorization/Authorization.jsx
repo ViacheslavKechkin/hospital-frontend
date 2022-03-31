@@ -12,9 +12,7 @@ const Authorization = () => {
     setFlagHeader,
     setMessageSnackBar,
     setMySnackBar,
-    newToken,
-    setNewToken,
-    setLoginStorage
+    setUserId,
   } = useContext(MyContext);
 
   const handleSubmit = (e) => {
@@ -26,14 +24,15 @@ const Authorization = () => {
   }
 
   const loginOn = async (email, password) => {
-    setLoginStorage(email);
 
     if (email !== '' && password !== '') {
       await axios.post('http://localhost:9000/login', {
         email,
         password
       }).then(res => {
-        setNewToken(res.data);
+        setUserId(res.data.user._id)
+        localStorage.setItem("email", email);
+        localStorage.setItem("token", res.data.token);
       })
         .catch(() => {
           setMessageSnackBar("Логин или пароль введен неверно !");
@@ -52,11 +51,10 @@ const Authorization = () => {
       setMessageSnackBar("Пожалуйста, напишите почту !");
       return setMySnackBar({ open: true })
     }
-  }
-
-  if (newToken) {
-    navigate('/Main')
-    setFlagHeader('login')
+    if (localStorage.getItem("token")) {
+      navigate('/main')
+      setFlagHeader('login')
+    }
   }
 
   return (

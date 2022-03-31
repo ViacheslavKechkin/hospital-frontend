@@ -3,7 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import MyContext from './context';
 import Mysnackbar from "./components/MUI/Mysnackbar/Mysnackbar";
-import Main from "./components/Main/Main";
+import MainPage from "./components/MainPage/MainPage";
 import Registration from './components/Registration/Registration';
 import Authorization from "./components/Authorization/Authorization";
 import logoHospital from './img/logohospital.png'
@@ -11,9 +11,10 @@ import './App.scss';
 
 const App = () => {
   const navigate = useNavigate();
-
+ 
   const {
     flagHeader,
+    setFlagHeader,
     mySnackBar,
     setMySnackBar,
     setUsers,
@@ -45,7 +46,9 @@ const App = () => {
 
   const exitOnMain = () => {
     navigate('/')
-    // setFlagHeader('authorization')
+    localStorage.setItem("token", '')
+    setFlagHeader('authorization')
+    setTextHeader('Войти в систему')
   }
 
   return (
@@ -55,7 +58,7 @@ const App = () => {
           <img src={logoHospital} alt="LogoHospital" className='main-logo' />
           <div className='headerTitle'>{textHeader}</div>
         </div>
-        {flagHeader === 'login' && (
+        {localStorage.getItem("token") !== '' && (
           <button className="main-btn_top" onClick={() => exitOnMain()}>Выход</button>
         )
         }
@@ -71,9 +74,11 @@ const App = () => {
         <Route path='/' element={
           <Authorization />
         } />
-        <Route path='/main' element={
-          <Main />
-        } />
+        {localStorage.getItem("token") ?
+          <Route path='/main' element={
+            <MainPage />
+          } /> : null
+        }
       </Routes>
     </div>
   );
