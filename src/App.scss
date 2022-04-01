@@ -1,14 +1,19 @@
 .App {
-  background-color: #C5E9FFB8;
+  background-color: #c5e9ffb8;
   font-weight: 300;
   height: 100vh;
 
   header {
-  display: flex;
-  align-items: center;
-  background-color: #C5E9FF;
-  height: 117px;
-  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    background-color: #c5e9ff;
+    height: 117px;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .header-wrap {
+    display: flex;
+    align-items: center;
   }
 
   .main-logo {
@@ -57,5 +62,47 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .App .headerTitle {
+    margin-left: 25px;
+    font-size: 28px;
+    line-height: 28px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .App {
+    .main-logo {
+      display: none;
+    }
+
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .headerTitle {
+      margin-left: none;
+    }
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .App header {
+    justify-content: center;
+  }
+
+  .App .main-logo {
+    display: none;
+  }
+
+  .App .headerTitle {
+    margin-left: 5px;
+    font-size: 26px;
+    line-height: 26px;
   }
 }
