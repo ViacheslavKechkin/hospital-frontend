@@ -153,8 +153,10 @@ header {
     flex-direction: column;
   }
 
-  .wrapper-main .main-form button {
-    margin-top: 10px;
+  .wrapper-main {
+    .main-form button {
+      margin-top: 10px;
+    }
   }
 
   .main-btn_top {

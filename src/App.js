@@ -11,7 +11,7 @@ import './App.scss';
 
 const App = () => {
   const navigate = useNavigate();
- 
+
   const {
     flagHeader,
     setFlagHeader,
@@ -77,7 +77,9 @@ const App = () => {
         {localStorage.getItem("token") ?
           <Route path='/main' element={
             <MainPage />
-          } /> : null
+          } /> : <Route path='/' element={
+            <Authorization />
+          } />
         }
       </Routes>
     </div>

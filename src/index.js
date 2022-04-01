@@ -13,13 +13,10 @@ const Main = () => {
   const [mySnackBar, setMySnackBar] = useState({ open: false });
   const [messageSnackBar, setMessageSnackBar] = useState("");
   const [loginStorage, setLoginStorage] = useState('');
-  const [userId, setUserId] = useState('');
 
   return (
     <React.StrictMode>
       <MyContext.Provider value={{
-        userId,
-        setUserId,
         users,
         setUsers,
         setMySnackBar,

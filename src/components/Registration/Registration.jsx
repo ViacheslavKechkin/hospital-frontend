@@ -13,7 +13,6 @@ const Registration = () => {
     setFlagHeader,
     setMySnackBar,
     setMessageSnackBar,
-    setUserId
   } = useContext(MyContext);
 
   const handleSubmit = (e) => {
@@ -26,7 +25,6 @@ const Registration = () => {
   }
 
   const addNewUser = async (email, password, repeatPassword) => {
-    // const pattern = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}/g;
     const patternOnLogin = /^.{6,}$/;
 
     if (email === "") {
@@ -57,7 +55,6 @@ const Registration = () => {
         password
       }).then(res => {
         setUsers(res.data.data);
-        setUserId(res.data.user._id)
         localStorage.setItem("token", res.data.token);
       })
         .catch(() => {
@@ -69,10 +66,6 @@ const Registration = () => {
       setMessageSnackBar(" Email должен быть минимум 6 символов !");
       return setMySnackBar({ open: true })
     } 
-    // if (!pattern.test(password)) {
-    //   setMessageSnackBar("Пароль должн быть не меньше 6 символов, должен состоять из латинских символов и содержать хотя бы 1 число.!");
-    //   return setMySnackBar({ open: true })
-    // }
 
     if (localStorage.getItem("token") && patternOnLogin.test(email)) {
       navigate('/main')

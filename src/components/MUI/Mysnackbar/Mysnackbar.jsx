@@ -13,7 +13,7 @@ const Mysnackbar = ({ open, handleCloseBar }) => {
       open={open}
       onClose={handleCloseBar}
       message={messageSnackBar}
-      sx={{ 
+      sx={{
         backgroundColor: 'red',
         '& .MuiSnackbarContent-root': {
           backgroundColor: 'red',

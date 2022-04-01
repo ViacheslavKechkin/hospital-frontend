@@ -4,17 +4,34 @@ import updateImg from "./img/update.png"
 import './RenderRecords.scss'
 
 const RenderRecords = ({ newRecord }) => {
-
-  console.log('newRecordnewRecord', newRecord);
+  const option = [
+    {
+      text: "Имя:"
+    },
+    {
+      text: "Врач:"
+    },
+    {
+      text: "Дата:"
+    },
+    {
+      text: "Жалобы:"
+    },
+    {
+      text: ""
+    }
+  ]
 
   return (
     <div className="records">
       <div className="records__header">
-        <div className="records__el-1">Имя:</div>
-        <div className="records__el-2">Врач:</div>
-        <div className="records__el-3">Дата:</div>
-        <div className="records__el-4">Жалобы:</div>
-        <div className="records__el-5"></div>
+        {option.map((item, index) => {
+          const { text } = item;
+          return (
+            <div key={`idx-${index}`} className={`records__el-${index + 1}`}>{text}</div>
+          )
+        })
+        }
       </div>
       {
         newRecord.map((item, index) => {

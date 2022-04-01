@@ -12,7 +12,6 @@ const Authorization = () => {
     setFlagHeader,
     setMessageSnackBar,
     setMySnackBar,
-    setUserId,
   } = useContext(MyContext);
 
   const handleSubmit = (e) => {
@@ -30,7 +29,6 @@ const Authorization = () => {
         email,
         password
       }).then(res => {
-        setUserId(res.data.user._id)
         localStorage.setItem("email", email);
         localStorage.setItem("token", res.data.token);
       })
