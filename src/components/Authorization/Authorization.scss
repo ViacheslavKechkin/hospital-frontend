@@ -1,4 +1,4 @@
-.wrapper-registration {
+.wrapper-authorization {
   margin-top: 41px;
   display: flex;
   align-items: center;
@@ -21,7 +21,7 @@
       margin-left: 20px;
       margin-right: auto;
     }
-    
+
     form {
       padding-top: 30px;
       display: flex;
@@ -29,8 +29,8 @@
     }
 
     label {
-    display: flex;
-    margin: 10px 0 10px 0;
+      display: flex;
+      margin: 10px 0 10px 0;
     }
 
     input {
@@ -52,7 +52,7 @@
       margin-top: 40px;
       padding: 10px 50px 10px 50px;
       margin-left: auto;
-      background: #FFFFFF;
+      background: #ffffff;
       border: 1px solid rgba(0, 0, 0, 0.2);
       box-sizing: border-box;
       border-radius: 4px;
@@ -67,8 +67,13 @@
       border: none;
       margin-top: 18px;
       margin-bottom: 40px;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 21px;
+      background: #ffffff;
     }
-    
+
     a {
       text-align: right;
     }
@@ -76,5 +81,52 @@
 
   img {
     width: 40%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .wrapper-authorization .block-form .btn-registration {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .wrapper-authorization {
+    display: flex;
+    align-items: center;
+
+    img {
+      display: none;
+    }
+
+    .block-form {
+      width: 70%;
+    }
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .wrapper-authorization {
+    .block-form__title {
+      font-size: 22px;
+      line-height: 26px;
+      margin-left: 0;
+    }
+
+    .block-form {
+      .button-auth {
+        margin-left: 0;
+      }
+
+      input {
+        font-size: 12px;
+        line-height: 12px;
+      }
+
+      a {
+        text-align: center;
+      }
+    }
   }
 }

@@ -58,7 +58,7 @@ const Authorization = () => {
   }
 
   return (
-    <div className="wrapper-registration">
+    <div className="wrapper-authorization">
       <img src={mainImg} alt="mainImg" />
       <div className="block-form">
         <div className="block-form__title">Войти в систему</div>

@@ -9,7 +9,7 @@ header {
   font-size: 24px;
   line-height: 28px;
   margin-right: 40px;
-  background: #FFFFFF;
+  background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
   border-radius: 4px;
@@ -40,7 +40,7 @@ header {
     }
 
     input {
-      background: #FFFFFF;
+      background: #ffffff;
       border: 1px solid rgba(0, 0, 0, 0.2);
       box-sizing: border-box;
       border-radius: 4px;
@@ -59,7 +59,7 @@ header {
     }
 
     select {
-      background: #FFFFFF;
+      background: #ffffff;
       border: 1px solid rgba(0, 0, 0, 0.2);
       box-sizing: border-box;
       border-radius: 4px;
@@ -71,11 +71,10 @@ header {
       line-height: 21px;
     }
 
-
     button {
       margin-top: 28px;
       padding: 12px 25px;
-      background: #FFFFFF;
+      background: #ffffff;
       border: 1px solid rgba(0, 0, 0, 0.2);
       box-sizing: border-box;
       border-radius: 4px;
@@ -85,5 +84,82 @@ header {
       line-height: 21px;
       cursor: pointer;
     }
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .wrapper-main {
+    .main-form {
+      padding-left: 24px;
+      padding-right: 24px;
+      height: auto;
+      flex-direction: column;
+      gap: 10px;
+
+      input {
+        width: 100%;
+      }
+
+      label {
+        font-size: 20px;
+        line-height: 20px;
+        margin-bottom: 0;
+      }
+
+      select {
+        width: 100%;
+      }
+
+      button {
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+    }
+
+    .main-form__wrapper {
+      width: 100%;
+      display: flex;
+      gap: 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .records {
+    height: 300px;
+    font-size: 12px;
+    word-break: break-all;
+    overflow: auto;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .App {
+    header {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .main-logo {
+      display: none;
+    }
+
+    .headerTitle {
+      margin-left: 0;
+    }
+  }
+  .records__function {
+    flex-direction: column;
+  }
+
+  .wrapper-main .main-form button {
+    margin-top: 10px;
+  }
+
+  .main-btn_top {
+    margin-top: 10px;
+    margin-right: 0;
+    margin-left: 25px;
   }
 }
