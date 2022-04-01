@@ -8,18 +8,11 @@ const Mysnackbar = ({ open, handleCloseBar }) => {
   const { messageSnackBar } = useContext(MyContext);
 
   return (
-    <Snackbar className={'mySnackbar'}
+    <Snackbar className='mySnackbar'
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       open={open}
       onClose={handleCloseBar}
       message={messageSnackBar}
-      sx={{
-        backgroundColor: 'red',
-        '& .MuiSnackbarContent-root': {
-          backgroundColor: 'red',
-          fontWeight: 900
-        },
-      }}
       transitionDuration={100}
     />
   )
