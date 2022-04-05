@@ -67,31 +67,31 @@ const MainPage = () => {
     }
   }
 
-  const option = [
+  const doctors = [
     {
-      value: "Дядя Жора",
+      label: "Дядя Жора",
       text: "Дядя Жора"
     },
     {
-      value: "Отец Вартан",
+      label: "Отец Вартан",
       text: "Отец Вартан"
     },
     {
-      value: "Варфаламей Петров",
+      label: "Варфаламей Петров",
       text: "Варфаламей Петров"
     },
     {
-      value: "Ivan",
+      label: "Ivan",
       text: "Ivan"
     },
   ]
 
   const dropdownDoctors = () => {
     return (
-      option.map((item, index) => {
-        const { value, text } = item;
+      doctors.map((item, index) => {
+        const { label, text } = item;
         return (
-          <option key={`idx-${index}`} value={value}>{text}</option>
+          <option key={`idx-${index}`} value={label}>{text}</option>
         )
       })
     )
@@ -141,7 +141,11 @@ const MainPage = () => {
           <button>Добавить</button>
         </form>
       </div>
-      <RenderRecords newRecord={newRecord} />
+      <RenderRecords
+        doctors={doctors}
+        newRecord={newRecord}
+        setNewRecord={setNewRecord}
+      />
     </>
   )
 }
