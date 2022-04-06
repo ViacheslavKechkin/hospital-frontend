@@ -58,7 +58,6 @@ const DialogForEditingRecord = ({
   const converDate = (normalDate) => {
     normalDate = normalDate.split(".");
     [normalDate[0], normalDate[1]] = [normalDate[1], normalDate[0]];
-    console.log(normalDate.join('-'));
     return normalDate.join('-')
   }
 
