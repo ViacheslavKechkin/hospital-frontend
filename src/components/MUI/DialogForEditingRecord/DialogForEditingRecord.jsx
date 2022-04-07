@@ -54,7 +54,7 @@ const DialogForEditingRecord = ({
   const navigate = useNavigate();
 
   const { _id, name, doctor, date, comment } = recordOnEditing;
-
+  console.log('пришла date', date);
   const converDate = (normalDate) => {
     normalDate = normalDate.split(".");
     [normalDate[0], normalDate[1]] = [normalDate[1], normalDate[0]];
@@ -64,7 +64,7 @@ const DialogForEditingRecord = ({
   const [data, setData] = useState({
     newNameRecord: name,
     newDoctorRecord: doctor,
-    newDateRecord: date,
+    newDateRecord: converDate(date),
     newCommentRecord: comment,
   });
 
@@ -76,6 +76,11 @@ const DialogForEditingRecord = ({
   } = data;
 
   const handleChangeData = (inputName, value) => {
+    console.log(inputName);
+    console.log(value);
+    // if (inputName === 'newDateRecord') {
+    //   converDate(value)
+    // }
     setData({
       ...data,
       [inputName]: value,
@@ -161,6 +166,7 @@ const DialogForEditingRecord = ({
           </Typography>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
+              inputFormat={"dd/MM/yyyy"}
               name="newDateRecord"
               value={newDateRecord}
               onChange={(e) => handleChangeData("newDateRecord", e)}

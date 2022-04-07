@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DeleteRecord from "../MUI/DeleteRecord/DeleteRecord";
 import DialogForEditingRecord from "../MUI/DialogForEditingRecord/DialogForEditingRecord";
 import deleteImg from "./img/trash.png"
 import updateImg from "./img/update.png"
@@ -37,6 +38,19 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
     setRecordOnEditing('')
   };
 
+  const [openDelete, setOpenDelete] = useState(false);
+  const [indexDeleteRecord, setIndexDeleteRecord] = useState(null);
+
+  const openDeleteWindow = (index) => {
+    setOpenDelete(true);
+    setIndexDeleteRecord(index);
+  };
+
+  const closeDeleteWindow = () => {
+    setOpenDelete(false);
+    setIndexDeleteRecord(null);
+  };
+
   return (
     <>
       <div className="records">
@@ -63,6 +77,7 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
                     className="records__img"
                     src={deleteImg}
                     alt="delete"
+                    onClick={() => openDeleteWindow(index)}
                   />
                   <img
                     className="records__img"
@@ -78,12 +93,21 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
       </div>
       {recordOnEditing && (
         <DialogForEditingRecord
-        setNewRecord={setNewRecord}
+          setNewRecord={setNewRecord}
           setOpen={setOpen}
           doctors={doctors}
           open={open}
           handleClose={handleClose}
           recordOnEditing={recordOnEditing}
+        />
+      )
+      }
+      {openDelete && (
+        <DeleteRecord
+          idTask={newRecord[indexDeleteRecord]._id}
+          setNewRecord={setNewRecord}
+          openDelete={openDelete}
+          closeDeleteWindow={closeDeleteWindow}
         />
       )
       }
