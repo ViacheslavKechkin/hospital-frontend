@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import moment from "moment";
-import PropTypes from 'prop-types';
 import DatePicker from '@mui/lab/DatePicker';
 import { styled } from '@mui/material/styles';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -12,7 +11,6 @@ import {
   Dialog,
   TextField,
   Typography,
-  DialogTitle,
   Autocomplete,
   DialogContent,
   DialogActions
@@ -28,27 +26,10 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const BootstrapDialogTitle = (props) => {
-  const { children, onClose, ...other } = props;
-
-  return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-      {children}
-    </DialogTitle>
-  );
-};
-
-BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
-};
-
 const DialogForEditingRecord = ({
   doctors,
-  open,
   handleClose,
   recordOnEditing,
-  setOpen,
   setNewRecord }) => {
 
   const navigate = useNavigate();
@@ -64,7 +45,7 @@ const DialogForEditingRecord = ({
   const [data, setData] = useState({
     newNameRecord: name,
     newDoctorRecord: doctor,
-    newDateRecord: date,
+    newDateRecord: converDate(date),
     newCommentRecord: comment,
   });
 
@@ -83,7 +64,6 @@ const DialogForEditingRecord = ({
   };
 
   const saveUpdateRecord = async () => {
-    setOpen(false);
 
     data.newDateRecord = moment(data.newDateRecord).format(
       "DD.MM.YYYY"
@@ -106,8 +86,8 @@ const DialogForEditingRecord = ({
         }
       )
       .then((res) => {
-        setOpen(false);
-        setNewRecord(res.data.data);
+        handleClose();
+        setNewRecord([...res.data.data]);
       });
   };
 
@@ -125,13 +105,18 @@ const DialogForEditingRecord = ({
       <BootstrapDialog className='dialog-wrapper'
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={true}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+        <Typography
+          id="customized-dialog-title"
+          onClose={handleClose}
+          gutterBottom>
           Изменить прием
-        </BootstrapDialogTitle>
+        </Typography>
         <DialogContent dividers>
-          <Typography gutterBottom>
+          <Typography
+            className='Typography-name'
+            gutterBottom>
             Имя:
           </Typography>
           <TextField
@@ -161,6 +146,7 @@ const DialogForEditingRecord = ({
           </Typography>
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
+              inputFormat={"dd/MM/yyyy"}
               name="newDateRecord"
               value={newDateRecord}
               onChange={(e) => handleChangeData("newDateRecord", e)}

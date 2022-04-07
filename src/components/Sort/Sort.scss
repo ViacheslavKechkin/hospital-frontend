@@ -1,0 +1,27 @@
+.wrapper-sort {
+  display: flex;
+  margin-top: 30px;
+  padding-left: 24px;
+  padding-right: 24px;
+  gap: 10px;
+  justify-content: center;
+
+  .sort-typography {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  .sort-name .MuiOutlinedInput-root {
+    background: rgb(255, 254, 254);
+    width: 200px;
+    height: 47px;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .wrapper-sort {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

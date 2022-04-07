@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DeleteRecord from "../MUI/DeleteRecord/DeleteRecord";
 import DialogForEditingRecord from "../MUI/DialogForEditingRecord/DialogForEditingRecord";
 import deleteImg from "./img/trash.png"
 import updateImg from "./img/update.png"
@@ -23,18 +24,27 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
     }
   ]
 
-  const [open, setOpen] = useState(false);
+  const [recordOnEditing, setRecordOnEditing] = useState(-1);
 
-  const [recordOnEditing, setRecordOnEditing] = useState(null);
-
-  const handleClickOpen = (item) => {
-    setRecordOnEditing(item)
-    setOpen(true);
+  const handleClickOpen = (index) => {
+    setRecordOnEditing(index)
   };
 
   const handleClose = () => {
-    setOpen(false);
-    setRecordOnEditing('')
+    setRecordOnEditing(-1)
+  };
+
+  const [openDelete, setOpenDelete] = useState(false);
+  const [indexDeleteRecord, setIndexDeleteRecord] = useState(null);
+
+  const openDeleteWindow = (index) => {
+    setOpenDelete(true);
+    setIndexDeleteRecord(index);
+  };
+
+  const closeDeleteWindow = () => {
+    setOpenDelete(false);
+    setIndexDeleteRecord(null);
   };
 
   return (
@@ -63,12 +73,13 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
                     className="records__img"
                     src={deleteImg}
                     alt="delete"
+                    onClick={() => openDeleteWindow(index)}
                   />
                   <img
                     className="records__img"
                     src={updateImg}
                     alt="update"
-                    onClick={() => handleClickOpen(item)}
+                    onClick={() => handleClickOpen(index)}
                   />
                 </div>
               </div>
@@ -76,14 +87,22 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
           })
         }
       </div>
-      {recordOnEditing && (
+      {recordOnEditing >= 0 && (
         <DialogForEditingRecord
-        setNewRecord={setNewRecord}
-          setOpen={setOpen}
+          setNewRecord={setNewRecord}
+          setOpen={setRecordOnEditing}
           doctors={doctors}
-          open={open}
           handleClose={handleClose}
-          recordOnEditing={recordOnEditing}
+          recordOnEditing={newRecord[recordOnEditing]}
+        />
+      )
+      }
+      {openDelete && (
+        <DeleteRecord
+          idTask={newRecord[indexDeleteRecord]._id}
+          setNewRecord={setNewRecord}
+          openDelete={openDelete}
+          closeDeleteWindow={closeDeleteWindow}
         />
       )
       }
