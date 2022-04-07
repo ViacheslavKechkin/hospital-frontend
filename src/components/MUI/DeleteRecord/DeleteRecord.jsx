@@ -1,14 +1,12 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 
 import {
   Button,
   Dialog,
   Typography,
-  DialogTitle,
   DialogContent,
   DialogActions
 } from '@mui/material';
@@ -23,24 +21,9 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const BootstrapDialogTitle = (props) => {
-  const { children, onClose, ...other } = props;
-
-  return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-      {children}
-    </DialogTitle>
-  );
-};
-
-BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
-};
-
 const DeleteRecord = ({ idTask, setNewRecord, openDelete, closeDeleteWindow }) => {
   const navigate = useNavigate();
-  
+
   const deleteFunction = async () => {
     await axios
       .delete(`http://localhost:9000/deleteOneRecord?_id=${idTask}`, {
@@ -70,9 +53,12 @@ const DeleteRecord = ({ idTask, setNewRecord, openDelete, closeDeleteWindow }) =
         aria-labelledby="customized-dialog-title"
         open={openDelete}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={closeDeleteWindow}>
+        <Typography
+          id="customized-dialog-title"
+          onClose={closeDeleteWindow}
+        >
           Удалить прием
-        </BootstrapDialogTitle>
+        </Typography>
         <DialogContent dividers>
           <Typography
             className='delete-question'

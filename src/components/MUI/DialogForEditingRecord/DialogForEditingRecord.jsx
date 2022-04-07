@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import moment from "moment";
-import PropTypes from 'prop-types';
 import DatePicker from '@mui/lab/DatePicker';
 import { styled } from '@mui/material/styles';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -12,7 +11,6 @@ import {
   Dialog,
   TextField,
   Typography,
-  DialogTitle,
   Autocomplete,
   DialogContent,
   DialogActions
@@ -28,21 +26,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const BootstrapDialogTitle = (props) => {
-  const { children, onClose, ...other } = props;
-
-  return (
-    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
-      {children}
-    </DialogTitle>
-  );
-};
-
-BootstrapDialogTitle.propTypes = {
-  children: PropTypes.node,
-  onClose: PropTypes.func.isRequired,
-};
-
 const DialogForEditingRecord = ({
   doctors,
   open,
@@ -54,7 +37,7 @@ const DialogForEditingRecord = ({
   const navigate = useNavigate();
 
   const { _id, name, doctor, date, comment } = recordOnEditing;
-  console.log('пришла date', date);
+
   const converDate = (normalDate) => {
     normalDate = normalDate.split(".");
     [normalDate[0], normalDate[1]] = [normalDate[1], normalDate[0]];
@@ -76,11 +59,6 @@ const DialogForEditingRecord = ({
   } = data;
 
   const handleChangeData = (inputName, value) => {
-    console.log(inputName);
-    console.log(value);
-    // if (inputName === 'newDateRecord') {
-    //   converDate(value)
-    // }
     setData({
       ...data,
       [inputName]: value,
@@ -132,11 +110,16 @@ const DialogForEditingRecord = ({
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+        <Typography
+          id="customized-dialog-title"
+          onClose={handleClose}
+          gutterBottom>
           Изменить прием
-        </BootstrapDialogTitle>
+        </Typography>
         <DialogContent dividers>
-          <Typography gutterBottom>
+          <Typography 
+          className='Typography-name'
+          gutterBottom>
             Имя:
           </Typography>
           <TextField
