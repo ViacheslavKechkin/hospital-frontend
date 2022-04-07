@@ -28,10 +28,8 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const DialogForEditingRecord = ({
   doctors,
-  open,
   handleClose,
   recordOnEditing,
-  setOpen,
   setNewRecord }) => {
 
   const navigate = useNavigate();
@@ -66,7 +64,6 @@ const DialogForEditingRecord = ({
   };
 
   const saveUpdateRecord = async () => {
-    setOpen(false);
 
     data.newDateRecord = moment(data.newDateRecord).format(
       "DD.MM.YYYY"
@@ -89,8 +86,8 @@ const DialogForEditingRecord = ({
         }
       )
       .then((res) => {
-        setOpen(false);
-        setNewRecord(res.data.data);
+        handleClose();
+        setNewRecord([...res.data.data]);
       });
   };
 
@@ -108,7 +105,7 @@ const DialogForEditingRecord = ({
       <BootstrapDialog className='dialog-wrapper'
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
-        open={open}
+        open={true}
       >
         <Typography
           id="customized-dialog-title"
@@ -117,9 +114,9 @@ const DialogForEditingRecord = ({
           Изменить прием
         </Typography>
         <DialogContent dividers>
-          <Typography 
-          className='Typography-name'
-          gutterBottom>
+          <Typography
+            className='Typography-name'
+            gutterBottom>
             Имя:
           </Typography>
           <TextField

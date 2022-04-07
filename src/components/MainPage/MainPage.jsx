@@ -33,13 +33,13 @@ const MainPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    let formData = new FormData(e.target);
     let name = formData.get('name');
     let doctor = formData.get('doctor');
     let date = formData.get('date').split('-').reverse().join('.');
     let comment = formData.get('comment');
     addNewRecord(name, doctor, date, comment);
-    formData.set(name, '')
+    e.target.reset();
   }
 
   const addNewRecord = async (name, doctor, date, comment) => {

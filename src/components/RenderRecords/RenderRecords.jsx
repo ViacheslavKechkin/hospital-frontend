@@ -24,18 +24,14 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
     }
   ]
 
-  const [open, setOpen] = useState(false);
+  const [recordOnEditing, setRecordOnEditing] = useState(-1);
 
-  const [recordOnEditing, setRecordOnEditing] = useState(null);
-
-  const handleClickOpen = (item) => {
-    setRecordOnEditing(item)
-    setOpen(true);
+  const handleClickOpen = (index) => {
+    setRecordOnEditing(index)
   };
 
   const handleClose = () => {
-    setOpen(false);
-    setRecordOnEditing('')
+    setRecordOnEditing(-1)
   };
 
   const [openDelete, setOpenDelete] = useState(false);
@@ -83,7 +79,7 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
                     className="records__img"
                     src={updateImg}
                     alt="update"
-                    onClick={() => handleClickOpen(item)}
+                    onClick={() => handleClickOpen(index)}
                   />
                 </div>
               </div>
@@ -91,14 +87,13 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
           })
         }
       </div>
-      {recordOnEditing && (
+      {recordOnEditing >= 0 && (
         <DialogForEditingRecord
           setNewRecord={setNewRecord}
-          setOpen={setOpen}
+          setOpen={setRecordOnEditing}
           doctors={doctors}
-          open={open}
           handleClose={handleClose}
-          recordOnEditing={recordOnEditing}
+          recordOnEditing={newRecord[recordOnEditing]}
         />
       )
       }
