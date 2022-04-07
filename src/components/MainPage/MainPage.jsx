@@ -33,11 +33,11 @@ const MainPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let formData = new FormData(e.target);
-    let name = formData.get('name');
-    let doctor = formData.get('doctor');
-    let date = formData.get('date').split('-').reverse().join('.');
-    let comment = formData.get('comment');
+    const formData = new FormData(e.target);
+    const name = formData.get('name');
+    const doctor = formData.get('doctor');
+    const date = formData.get('date').split('-').reverse().join('.');
+    const comment = formData.get('comment');
     addNewRecord(name, doctor, date, comment);
     e.target.reset();
   }
