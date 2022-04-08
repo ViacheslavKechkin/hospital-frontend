@@ -3,6 +3,7 @@ import axios from 'axios';
 import moment from "moment";
 import MyContext from "../../context";
 import RenderRecords from "../RenderRecords/RenderRecords";
+import Sort from "../Sort/Sort";
 import './MainPage.scss'
 
 const MainPage = () => {
@@ -141,6 +142,10 @@ const MainPage = () => {
           <button>Добавить</button>
         </form>
       </div>
+      <Sort
+      newRecord={newRecord}
+      setNewRecord={setNewRecord}
+      />
       <RenderRecords
         doctors={doctors}
         newRecord={newRecord}
