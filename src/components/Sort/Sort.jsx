@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import {
   TextField,
   Autocomplete,
@@ -6,6 +7,17 @@ import {
 import './Sort.scss'
 
 const Sort = ({ newRecord, setNewRecord }) => {
+
+  const getAllTask = () => {
+    axios.get('http://localhost:9000/allRecords', {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    })
+      .then(res => {
+        setNewRecord(res.data.data);
+      });
+  }
 
   const optionsSort = [
     {
@@ -56,10 +68,10 @@ const Sort = ({ newRecord, setNewRecord }) => {
 
   const sortRecords = (dataForSort, directionForSort) => {
     if (dataForSort === "None") {
-      return newRecord;
+      getAllTask();
     }
 
-    newRecord.sort((a, b) => {
+    newRecord = newRecord.sort((a, b) => {
       if (a[dataForSort] > b[dataForSort]) {
         return 1;
       }
@@ -69,7 +81,6 @@ const Sort = ({ newRecord, setNewRecord }) => {
       return 0;
     }
     );
-
     if (directionForSort === "decrease") {
       newRecord.reverse();
     }
