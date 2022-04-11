@@ -26,6 +26,7 @@ const Registration = () => {
 
   const addNewUser = async (email, password, repeatPassword) => {
     const patternOnLogin = /^.{6,}$/;
+    const pattern = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}/g;
 
     if (email === "") {
       setMessageSnackBar(" Пожалуйста, напишите почту !");
@@ -65,7 +66,12 @@ const Registration = () => {
     } if (!patternOnLogin.test(email)) {
       setMessageSnackBar(" Email должен быть минимум 6 символов !");
       return setMySnackBar({ open: true })
-    } 
+    }
+
+    if (!pattern.test(password)) {
+      setMessageSnackBar("Пароль должн быть не меньше 6 символов, должен состоять из латинских символов и содержать хотя бы 1 число.!");
+      return setMySnackBar({ open: true })
+    }
 
     if (localStorage.getItem("token") && patternOnLogin.test(email)) {
       navigate('/main')
