@@ -68,7 +68,7 @@ const DialogForEditingRecord = ({
     data.newDateRecord = moment(data.newDateRecord).format(
       "DD.MM.YYYY"
     );
-    console.log('newDoctorRecord', newDoctorRecord);
+
     await axios
       .patch(
         "http://localhost:9000/editOneRecord",

@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import moment from "moment";
 import MyContext from "../../context";
-import RenderRecords from "../RenderRecords/RenderRecords";
 import Sort from "../Sort/Sort";
+import RenderRecords from "../RenderRecords/RenderRecords";
 import './MainPage.scss'
 
 const MainPage = () => {
