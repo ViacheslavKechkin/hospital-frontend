@@ -131,15 +131,14 @@ const DialogForEditingRecord = ({
             Врач:
           </Typography>
           <Autocomplete
-            name="newDoctorRecord"
             id="combo-box-demo"
-            value={newDoctorRecord || ""}
-            onChange={(e) =>
-              handleChangeData(e.target.name, e.target.value)
+            value={newDoctorRecord}
+            onChange={(event, value) =>
+              handleChangeData('newDoctorRecord', value.label)
             }
             disablePortal
             options={doctors}
-            renderInput={(params) => <TextField {...params} />}
+            renderInput={(params) => <TextField name="newDoctorRecord" {...params} />}
           />
           <Typography gutterBottom>
             Дата:

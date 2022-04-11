@@ -1,41 +1,92 @@
+import React, { useState } from 'react';
+import axios from 'axios';
 import {
   TextField,
-  Typography,
   Autocomplete,
 } from '@mui/material';
 import './Sort.scss'
 
-const optionsSort = [
-  {
-    label: "Имя",
-    text: "Имя"
-  },
-  {
-    label: "Врач",
-    text: "Врач"
-  },
-  {
-    label: "Дата",
-    text: "Дата"
-  },
-  {
-    label: "None",
-    text: "None"
-  },
-]
+const Sort = ({ newRecord, setNewRecord }) => {
 
-const optionsDirection = [
-  {
-    label: "По возврастанию",
-    text: "По возврастанию"
-  },
-  {
-    label: "По убыванию",
-    text: "По убыванию"
+  const getAllTask = () => {
+    axios.get('http://localhost:9000/allRecords', {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    })
+      .then(res => {
+        setNewRecord(res.data.data);
+      });
   }
-]
 
-const Sort = () => {
+  const optionsSort = [
+    {
+      label: "Имя",
+      value: "name"
+    },
+    {
+      label: "Врач",
+      value: "doctor"
+    },
+    {
+      label: "Дата",
+      value: "date"
+    },
+    {
+      label: "None",
+      value: "None"
+    },
+  ];
+
+  const optionsDirection = [
+    {
+      label: "По возврастанию",
+      value: "increase"
+    },
+    {
+      label: "По убыванию",
+      value: "decrease"
+    }
+  ];
+
+  const [sortParams, setSortParams] = useState({
+    field: "None",
+    direction: "increase",
+  });
+
+  const { field, direction } = sortParams;
+
+  const handleChangeSort = (lable, value) => {
+    setSortParams({ ...sortParams, field: value })
+    sortRecords(value, direction)
+  }
+
+  const handleChangeDirection = (lable, value) => {
+    setSortParams({ ...sortParams, direction: value })
+    sortRecords(field, value)
+  }
+
+  const sortRecords = (dataForSort, directionForSort) => {
+    if (dataForSort === "None") {
+      getAllTask();
+    }
+
+    newRecord = newRecord.sort((a, b) => {
+      if (a[dataForSort] > b[dataForSort]) {
+        return 1;
+      }
+      if (a[dataForSort] < b[dataForSort]) {
+        return -1;
+      }
+      return 0;
+    }
+    );
+    if (directionForSort === "decrease") {
+      newRecord.reverse();
+    }
+    setNewRecord([...newRecord])
+  }
+
   return (
     <>
       <div className='wrapper-sort'>
@@ -48,23 +99,33 @@ const Sort = () => {
           id="combo-box-demo"
           disablePortal
           options={optionsSort}
+          onChange={(event, value) =>
+            handleChangeSort(value.label, value.value)
+          }
           renderInput={(params) => <TextField {...params} />}
         />
-        <div className='sort-typography'>
-          Направление:
-        </div>
-        <Autocomplete
-          className='sort-name'
-          name="sort-by"
-          id="combo-box-demo"
-          disablePortal
-          options={optionsDirection}
-          renderInput={(params) => <TextField {...params} />}
-        />
+        {field !== "None" && (
+          <>
+            <div className='sort-typography'>
+              Направление:
+            </div>
+            <Autocomplete
+              className='sort-name'
+              name="sort-by"
+              id="combo-box-demo"
+              onChange={(event, value) =>
+                handleChangeDirection(value.label, value.value)
+              }
+              disablePortal
+              options={optionsDirection}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </>
+        )
+        }
       </div>
     </>
   )
-
 }
 
 export default Sort;

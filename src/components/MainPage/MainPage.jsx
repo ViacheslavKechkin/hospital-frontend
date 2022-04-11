@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import moment from "moment";
 import MyContext from "../../context";
+import Sort from "../Sort/Sort";
 import RenderRecords from "../RenderRecords/RenderRecords";
 import './MainPage.scss'
 
@@ -141,6 +142,10 @@ const MainPage = () => {
           <button>Добавить</button>
         </form>
       </div>
+      <Sort
+      newRecord={newRecord}
+      setNewRecord={setNewRecord}
+      />
       <RenderRecords
         doctors={doctors}
         newRecord={newRecord}
