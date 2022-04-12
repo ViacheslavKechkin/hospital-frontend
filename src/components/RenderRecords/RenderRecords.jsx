@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DeleteRecord from "../MUI/DeleteRecord/DeleteRecord";
 import DialogForEditingRecord from "../MUI/DialogForEditingRecord/DialogForEditingRecord";
 import deleteImg from "./img/trash.png"
@@ -23,7 +24,7 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
       text: ""
     }
   ]
-
+  const navigate = useNavigate();
   const [recordOnEditing, setRecordOnEditing] = useState(-1);
 
   const handleClickOpen = (index) => {
@@ -38,6 +39,7 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
   const [indexDeleteRecord, setIndexDeleteRecord] = useState(null);
 
   const openDeleteWindow = (index) => {
+    validateForToken()
     setOpenDelete(true);
     setIndexDeleteRecord(index);
   };
@@ -46,6 +48,15 @@ const RenderRecords = ({ newRecord, doctors, setNewRecord }) => {
     setOpenDelete(false);
     setIndexDeleteRecord(null);
   };
+
+  const validateForToken = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate('/registration')
+    }
+  }
+
+  validateForToken();
 
   return (
     <>

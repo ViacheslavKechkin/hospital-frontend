@@ -27,13 +27,25 @@ const Registration = () => {
   const addNewUser = async (email, password, repeatPassword) => {
     const patternOnLogin = /^.{6,}$/;
     const pattern = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}/g;
-
+    
+    if (email === "" && password === "" && repeatPassword === "") {
+      setMessageSnackBar(" Пожалуйста заполните все поля регистрации !");
+      setMySnackBar({ open: true })
+    }
     if (email === "") {
       setMessageSnackBar(" Пожалуйста, напишите почту !");
       return setMySnackBar({ open: true })
     }
+    if (!patternOnLogin.test(email)) {
+      setMessageSnackBar(" Email должен быть минимум 6 символов !");
+      return setMySnackBar({ open: true })
+    }
     if (password === "") {
       setMessageSnackBar(" Пожалуйста, напишите пароль !");
+      return setMySnackBar({ open: true })
+    }
+    if (!pattern.test(password)) {
+      setMessageSnackBar("Пароль должн быть не меньше 6 символов, должен состоять из латинских символов и содержать хотя бы 1 число!");
       return setMySnackBar({ open: true })
     }
     if (repeatPassword === "") {
@@ -43,10 +55,6 @@ const Registration = () => {
     if (password !== repeatPassword) {
       setMessageSnackBar(" Пожалуйста, введите одинаковые пароли !");
       return setMySnackBar({ open: true })
-    }
-    if (email === '' && password === '' && repeatPassword === '') {
-      setMessageSnackBar(" Пожалуйста заполните все поля регистрации !");
-      setMySnackBar({ open: true })
     }
 
     if (email !== '' && password !== '' && repeatPassword !== '' && patternOnLogin.test(email)) {
@@ -63,16 +71,7 @@ const Registration = () => {
           setMySnackBar({ open: true })
           localStorage.setItem("token", '');
         })
-    } if (!patternOnLogin.test(email)) {
-      setMessageSnackBar(" Email должен быть минимум 6 символов !");
-      return setMySnackBar({ open: true })
     }
-
-    if (!pattern.test(password)) {
-      setMessageSnackBar("Пароль должн быть не меньше 6 символов, должен состоять из латинских символов и содержать хотя бы 1 число.!");
-      return setMySnackBar({ open: true })
-    }
-
     if (localStorage.getItem("token") && patternOnLogin.test(email)) {
       navigate('/main')
       setFlagHeader('login')
