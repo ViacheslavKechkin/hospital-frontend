@@ -63,32 +63,24 @@ const Sort = ({ newRecord, setNewRecord }) => {
     sortRecords(field, value);
   };
 
-  const reverseDate = (newRecord) => {
-    newRecord.map((item) => {
-      const temp = item.date.split('.');
-      const elem = temp.reverse().join('.');
-      return item.date = elem;
-    });
-    return newRecord;
-  };
-  const reverseDateBack = (newRecord) => {
-    newRecord.map((item) => {
-      const temp = item.date.split('.');
-      const elem = temp.reverse().join('.');
-      return item.date = elem;
-    });
-    return newRecord;
-  };
+  const reverseDate = (newRecord) =>
+    newRecord.map(
+      (item) => (item.date = item.date.split(".").reverse().join("."))
+    );
+
+  const reverseDateBack = (newRecord) =>
+    newRecord.map(
+      (item) => (item.date = item.date.split(".").reverse().join("."))
+    );
 
   const sortRecords = (dataForSort, directionForSort) => {
-
     if (dataForSort === "date") reverseDate(newRecord);
 
     if (dataForSort === "None") {
       getAllTask();
     }
 
-    newRecord = newRecord.sort((a, b) =>
+    newRecord.sort((a, b) =>
       a[dataForSort] > b[dataForSort]
         ? 1
         : a[dataForSort] < b[dataForSort]

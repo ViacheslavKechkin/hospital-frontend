@@ -4,24 +4,19 @@ import DatePicker from "@mui/lab/DatePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { Button, TextField, Typography } from "@mui/material";
-import "./Filter.scss";
 import trash from "./img/trash.png";
+import "./Filter.scss";
 
 const Filter = ({ openOrCloseFilter, newRecord, setNewRecord }) => {
   const [dateForFilter, setDateForFilter] = useState({
     firstDateForStart: "",
     secondDateForEnd: "",
   });
-  
+
   const { firstDateForStart, secondDateForEnd } = dateForFilter;
 
   const handleChange = (e, inputName) => {
     setDateForFilter({ ...dateForFilter, [inputName]: e });
-  };
-
-  const updateState = () => {
-    console.log("HIHIHI");
-    allRecord();
   };
 
   const allRecord = () => {
@@ -35,6 +30,10 @@ const Filter = ({ openOrCloseFilter, newRecord, setNewRecord }) => {
         setNewRecord(res.data.data);
       });
   };
+
+  const filterRecords = () => {
+
+  }
 
   return (
     <>
@@ -64,7 +63,7 @@ const Filter = ({ openOrCloseFilter, newRecord, setNewRecord }) => {
         <img
           src={trash}
           alt="trash"
-          onClick={() => (openOrCloseFilter(false), updateState())}
+          onClick={() => (openOrCloseFilter(false), allRecord())}
         ></img>
       </div>
     </>

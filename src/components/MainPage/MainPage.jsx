@@ -6,8 +6,8 @@ import MyContext from "../../context";
 import Sort from "../Sort/Sort";
 import Filter from "../Filter/Filter";
 import RenderRecords from "../RenderRecords/RenderRecords";
-import "./MainPage.scss";
 import openFilterImg from "./img/openFilterImg.png";
+import "./MainPage.scss";
 
 const MainPage = () => {
   const { setMySnackBar, setMessageSnackBar } = useContext(MyContext);
@@ -19,8 +19,6 @@ const MainPage = () => {
 
   const now = moment();
   const [newDate, setNewDate] = useState(now.format("yyyy-MM-DD"));
-  // console.log('newDate1', newDate);
-  // console.log('newDate2', newDate.split('-').reverse().join('.'));
 
   const changeDateInput = (event) => {
     setNewDate(event.target.value);
@@ -64,7 +62,7 @@ const MainPage = () => {
 
     let email = localStorage.getItem("email");
 
-    if (name !== "" && doctor !== "" && date !== "" && comment !== "") {
+    if (name !== null && doctor !== null && date !== null && comment !== null) {
       await axios
         .post(
           "http://localhost:9000/createRecord",
