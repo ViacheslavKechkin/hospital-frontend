@@ -2,9 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import moment from "moment";
-import MyContext from "../../context";
 import Sort from "../Sort/Sort";
 import Filter from "../Filter/Filter";
+import MyContext from "../../context";
 import RenderRecords from "../RenderRecords/RenderRecords";
 import openFilterImg from "./img/openFilterImg.png";
 import "./MainPage.scss";
@@ -62,7 +62,7 @@ const MainPage = () => {
 
     let email = localStorage.getItem("email");
 
-    if (name !== null && doctor !== null && date !== null && comment !== null) {
+    if (name.trim() && doctor.trim() && date.trim() && comment.trim()) {
       await axios
         .post(
           "http://localhost:9000/createRecord",

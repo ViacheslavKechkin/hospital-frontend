@@ -24,11 +24,11 @@ const Registration = () => {
     const patternOnLogin = /^.{6,}$/;
     const pattern = /(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{6,}/g;
 
-    if (email === "" && password === "" && repeatPassword === "") {
+    if (!email.trim() && !password.trim() && !repeatPassword.trim()) {
       setMessageSnackBar(" Пожалуйста заполните все поля регистрации !");
       setMySnackBar({ open: true });
     }
-    if (email === "") {
+    if (!email.trim()) {
       setMessageSnackBar(" Пожалуйста, напишите почту !");
       return setMySnackBar({ open: true });
     }
@@ -36,7 +36,7 @@ const Registration = () => {
       setMessageSnackBar(" Email должен быть минимум 6 символов !");
       return setMySnackBar({ open: true });
     }
-    if (password === "") {
+    if (!password.trim()) {
       setMessageSnackBar(" Пожалуйста, напишите пароль !");
       return setMySnackBar({ open: true });
     }
@@ -46,7 +46,7 @@ const Registration = () => {
       );
       return setMySnackBar({ open: true });
     }
-    if (repeatPassword === "") {
+    if (!repeatPassword.trim()) {
       setMessageSnackBar(" Пожалуйста, повторите пароль !");
       return setMySnackBar({ open: true });
     }
@@ -56,9 +56,9 @@ const Registration = () => {
     }
 
     if (
-      email !== "" &&
-      password !== "" &&
-      repeatPassword !== "" &&
+      email.trim() &&
+      password.trim()&&
+      repeatPassword.trim() &&
       patternOnLogin.test(email)
     ) {
       localStorage.setItem("email", email);
