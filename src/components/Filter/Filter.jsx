@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import moment from "moment";
 import DatePicker from "@mui/lab/DatePicker";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -32,8 +33,30 @@ const Filter = ({ openOrCloseFilter, newRecord, setNewRecord }) => {
   };
 
   const filterRecords = () => {
+    const newStartDate = moment(firstDateForStart)
+      .format("yyyy-MM-DD")
+      .split("-")
+      .join(".");
 
-  }
+    const newEndDate = moment(secondDateForEnd)
+      .format("yyyy-MM-DD")
+      .split("-")
+      .join(".");
+
+    const start = firstDateForStart ? newStartDate : "";
+
+    const end = secondDateForEnd ? newEndDate : "";
+
+    if (!start && !end) return setNewRecord([...newRecord]);
+
+    newRecord = newRecord.filter((item) => {
+      const temp = item.date.split(".").reverse().join(".");
+      if (start && !end) return temp >= start;
+      if (!start && end) return temp <= end;
+      else return temp >= start && temp <= end;
+    });
+    return setNewRecord([...newRecord]);
+  };
 
   return (
     <>
@@ -58,8 +81,9 @@ const Filter = ({ openOrCloseFilter, newRecord, setNewRecord }) => {
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-
-        <Button variant="outlined">Фильтровать</Button>
+        <Button onClick={() => filterRecords()} variant="outlined">
+          Фильтровать
+        </Button>
         <img
           src={trash}
           alt="trash"
