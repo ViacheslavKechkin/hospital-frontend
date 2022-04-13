@@ -1,0 +1,40 @@
+.wrapper-actions {
+  gap: 25px;
+  margin-top: 20px;
+  margin: 20px 24px 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+
+  .MuiButton-root {
+    padding: 10px 50px;
+    color: black;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 220px;
+    height: 47px;
+  }
+
+  .MuiOutlinedInput-root {
+    background: #fffefe;
+    width: 220px;
+    height: 47px;
+    border: none;
+
+    fieldset {
+      border-color: #949494;
+    }
+  }
+
+  img {
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .wrapper-actions {
+    gap: 10px;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}

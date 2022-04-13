@@ -91,6 +91,26 @@ header {
   }
 }
 
+.wrapper-sort-filter {
+  display: flex;
+  justify-content: end;
+}
+
+.wrapper-filter {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  padding-right: 24px;
+
+  div {
+    margin-right: 10px;
+  }
+
+  .img-open-filter {
+    cursor: pointer;
+  }
+}
+
 @media screen and (max-width: 920px) {
   .wrapper-main {
     .main-form {
@@ -128,6 +148,17 @@ header {
   }
 }
 
+@media screen and (max-width: 860px) {
+  .wrapper-sort-filter {
+    flex-direction: column;
+  }
+
+  .wrapper-filter {
+    justify-content: end;
+    padding-right: 24px;
+  }
+}
+
 @media screen and (max-width: 650px) {
   .records {
     height: 300px;
@@ -153,6 +184,7 @@ header {
       margin-left: 0;
     }
   }
+
   .records__function {
     flex-direction: column;
   }
