@@ -19,11 +19,15 @@
     background: #fffefe;
     width: 220px;
     height: 47px;
-    border: none;
+  }
 
-    fieldset {
-      border-color: #949494;
-    }
+  .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root.Mui-error
+    .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(0, 0, 0, 0.23);
+  }
+  .css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root.Mui-error
+    .MuiOutlinedInput-notchedOutline {
+    border-color: rgba(0, 0, 0, 0.23);
   }
 
   img {

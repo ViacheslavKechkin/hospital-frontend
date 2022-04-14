@@ -42,6 +42,7 @@ const MainPage = () => {
         },
       })
       .then((res) => {
+        validateForToken();
         setNewRecord(res.data.data);
       });
   }, []);
@@ -147,6 +148,8 @@ const MainPage = () => {
               type="date"
               id="date"
               name="date"
+              min='2021-01-01'
+              max='2023-12-31'
               placeholder="Введите дату"
               value={newDate}
               onChange={(e) => changeDateInput(e)}

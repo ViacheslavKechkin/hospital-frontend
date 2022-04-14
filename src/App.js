@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { useNavigate, useRoutes } from "react-router-dom";
+import { useNavigate, useRoutes, useLocation } from "react-router-dom";
 import axios from "axios";
 import routes from "./routes";
 import MyContext from "./context";
@@ -8,18 +8,17 @@ import logoHospital from "./img/logohospital.png";
 import "./App.scss";
 
 const App = () => {
+  const location = useLocation();
+  let headerText = "";
+
   const navigate = useNavigate();
 
   const routing = useRoutes(routes());
 
   const {
-    flagHeader,
-    setFlagHeader,
     mySnackBar,
     setMySnackBar,
     setUsers,
-    textHeader,
-    setTextHeader,
   } = useContext(MyContext);
 
   const { open } = mySnackBar;
@@ -34,21 +33,24 @@ const App = () => {
     });
   }, [setUsers]);
 
-  if (flagHeader === "authorization") {
-    setTextHeader("Войти в систему");
-  }
-  if (flagHeader === "registration") {
-    setTextHeader("Зарегистрироваться в системе");
-  }
-  if (flagHeader === "login") {
-    setTextHeader("Приемы");
+  switch (location.pathname) {
+    case "/":
+      headerText = "Войти в систему";
+      break;
+    case "/registration":
+      headerText = "Зарегистрироваться в системе";
+      break;
+    case "/main":
+      headerText = "Приемы";
+      break;
+    default:
+      headerText = "Страница не найдена";
+      break;
   }
 
   const exitOnMain = () => {
     navigate("/");
     localStorage.setItem("token", "");
-    setFlagHeader("authorization");
-    setTextHeader("Войти в систему");
   };
 
   return (
@@ -56,7 +58,7 @@ const App = () => {
       <header>
         <div className="header-wrap">
           <img src={logoHospital} alt="LogoHospital" className="main-logo" />
-          <div className="headerTitle">{textHeader}</div>
+          <div className="headerTitle">{headerText}</div>
         </div>
         {localStorage.getItem("token") && (
           <button className="main-btn_top" onClick={() => exitOnMain()}>

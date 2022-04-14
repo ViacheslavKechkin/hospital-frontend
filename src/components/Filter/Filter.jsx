@@ -19,7 +19,6 @@ const Filter = ({ openOrCloseFilter, newRecord, setNewRecord }) => {
   const handleChange = (e, inputName) => {
     setDateForFilter({ ...dateForFilter, [inputName]: e });
   };
-
   const allRecord = () => {
     axios
       .get("http://localhost:9000/allRecords", {
@@ -32,7 +31,13 @@ const Filter = ({ openOrCloseFilter, newRecord, setNewRecord }) => {
       });
   };
 
+  const [flag, setFlag] = useState(-1);
+
   const filterRecords = () => {
+    if (flag > 0) {
+      setFlag(-1);
+      allRecord();
+    }
     const newStartDate = moment(firstDateForStart)
       .format("yyyy-MM-DD")
       .split("-")
@@ -55,6 +60,11 @@ const Filter = ({ openOrCloseFilter, newRecord, setNewRecord }) => {
       if (!start && end) return temp <= end;
       else return temp >= start && temp <= end;
     });
+
+    if (flag < 0) {
+      setFlag(1);
+    }
+
     return setNewRecord([...newRecord]);
   };
 
@@ -66,6 +76,8 @@ const Filter = ({ openOrCloseFilter, newRecord, setNewRecord }) => {
           <DatePicker
             inputFormat={"dd/MM/yyyy"}
             name="firstDateForStart"
+            min="2021-01-01"
+            max="2023-12-31"
             value={firstDateForStart}
             onChange={(e) => handleChange(e, "firstDateForStart")}
             renderInput={(params) => <TextField {...params} />}
@@ -76,6 +88,8 @@ const Filter = ({ openOrCloseFilter, newRecord, setNewRecord }) => {
           <DatePicker
             inputFormat={"dd/MM/yyyy"}
             name="secondDateForEnd"
+            min="2021-01-01"
+            max="2023-12-31"
             value={secondDateForEnd}
             onChange={(e) => handleChange(e, "secondDateForEnd")}
             renderInput={(params) => <TextField {...params} />}

@@ -7,12 +7,9 @@ import App from './App';
 import './index.scss';
 
 const Main = () => {
-  const [flagHeader, setFlagHeader] = useState('authorization');
-  const [textHeader, setTextHeader] = useState('Войти в систему');
   const [users, setUsers] = useState([]);
   const [mySnackBar, setMySnackBar] = useState({ open: false });
   const [messageSnackBar, setMessageSnackBar] = useState("");
-  const [loginStorage, setLoginStorage] = useState('');
 
   return (
     <React.StrictMode>
@@ -20,15 +17,9 @@ const Main = () => {
         users,
         setUsers,
         setMySnackBar,
-        flagHeader,
-        setFlagHeader,
-        textHeader,
-        setTextHeader,
         mySnackBar,
         messageSnackBar,
         setMessageSnackBar,
-        loginStorage,
-        setLoginStorage,
       }}>
         <BrowserRouter>
           <App />

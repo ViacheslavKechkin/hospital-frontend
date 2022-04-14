@@ -1,9 +1,11 @@
 .records {
   margin: 24px;
+  height: 500px;
+  overflow: scroll;
 
   &__header {
     border-bottom: 1px solid #000;
-    background: #C4C4C4;
+    background: #c4c4c4;
     height: 60px;
     display: flex;
     align-items: center;
@@ -46,7 +48,7 @@
     align-items: center;
     justify-content: space-around;
   }
-  
+
   .wrapper-records:last-child {
     border-bottom: 1px solid #000;
   }
@@ -55,53 +57,81 @@
     border-left: 1px solid #000;
     border-right: 2px solid #000;
     width: 25%;
-    height: 80px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
-    word-break: break-all;
     word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    padding: 4px;
+    cursor: pointer;
   }
+
+  &__name:focus {
+    background-color: rgb(192, 6, 6);
+    align-items: center;
+    justify-content: center;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    padding: 4px;
+  }
+  
 
   &__doctor {
     border-right: 2px solid #000;
     width: 25%;
-    height: 80px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
     word-wrap: break-word;
     word-break: break-all;
+    padding: 4px;
   }
 
   &__date {
     border-right: 2px solid #000;
     width: 15%;
-    height: 80px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 4px;
   }
 
   &__comment {
     border-right: 2px solid #000;
     width: 30%;
-    height: 80px;
+    height: 70px;
     display: flex;
-    align-items: center;
-    justify-content: center;
     word-wrap: break-word;
-    word-break: break-all;
-    overflow: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    padding: 4px;
   }
 
   &__function {
     border-right: 1px solid #000;
     width: 10%;
-    height: 80px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: space-around;
+    padding: 4px;
   }
 
   &__img {
