@@ -8,8 +8,7 @@ import "./Registration.scss";
 const Registration = () => {
   const navigate = useNavigate();
 
-  const { setUsers, setFlagHeader, setMySnackBar, setMessageSnackBar } =
-    useContext(MyContext);
+  const { setUsers, setMySnackBar, setMessageSnackBar } = useContext(MyContext);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -57,7 +56,7 @@ const Registration = () => {
 
     if (
       email.trim() &&
-      password.trim()&&
+      password.trim() &&
       repeatPassword.trim() &&
       patternOnLogin.test(email)
     ) {
@@ -79,7 +78,6 @@ const Registration = () => {
     }
     if (localStorage.getItem("token") && patternOnLogin.test(email)) {
       navigate("/main");
-      setFlagHeader("login");
     }
   };
 
@@ -108,12 +106,7 @@ const Registration = () => {
           <button>Зарегистрироваться</button>
         </form>
         <Link to={"/"}>
-          <button
-            className="btn-authorization"
-            onClick={() => setFlagHeader("authorization")}
-          >
-            Авторизоваться
-          </button>
+          <button className="btn-authorization">Авторизоваться</button>
         </Link>
       </div>
     </div>
